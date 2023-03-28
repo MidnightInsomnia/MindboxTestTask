@@ -88,7 +88,7 @@ LEFT JOIN Категория
 <div>
   <img src="https://user-images.githubusercontent.com/61066851/228301686-ad3afdf5-5a42-4c34-b055-0a6b032f4210.png" width="250"></img>
   <img src="https://user-images.githubusercontent.com/61066851/228301428-3fbe0bd0-e81e-4188-b0d7-7bbf20a45ec1.png" width="350"></img>
-  <img src="https://user-images.githubusercontent.com/61066851/228301613-dba4b70b-5a86-4d65-959f-a5681c4dd2a1.png" width="400"></img>
+  <img src="https://user-images.githubusercontent.com/61066851/228301613-dba4b70b-5a86-4d65-959f-a5681c4dd2a1.png" width="350"></img>
 </div>
 
 ### Уважаемые MindBox, в случае если я слишком слаб для позиции Junior прошу взять меня стажёром, я готов учиться и тратить на программирование всё своё время, иначе мне вскоре придётся похоронить свои мечты, повесить клавиатуру на гвоздь и снова надеть форму гос. структуры, на этот раз из финансовых потребностей.
