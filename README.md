@@ -58,9 +58,9 @@ internal static IFigure DetermineFigure(params double[] sides)
 	case 3:
 	    return new Triangle(sides[0], sides[1], sides[2]);
 	//Обработка новых N-угольников
+	default: 
+	    throw new ArgumentException();
     }
-
-    throw new ArgumentException();
 }
 ```
 
@@ -70,7 +70,7 @@ internal static IFigure DetermineFigure(params double[] sides)
 
 ### Покрытие
 
-![image](https://user-images.githubusercontent.com/61066851/234518618-cb4434cc-c88c-4dfe-ada8-04769032565e.png)
+![image](https://user-images.githubusercontent.com/61066851/234521409-ac605188-27f4-4f63-99df-c65ea071182e.png)
 
 ## SQL
 
