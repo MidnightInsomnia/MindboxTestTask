@@ -1,5 +1,4 @@
-# Mindbox тестовое задание
-## UPD: Не взяли. Нужно было делать через интерфейсы и применить к ним SOLID
+# Mindbox тестовое задание (SECOND TRY)
 
 ```Kotlin
 Задача №1 на создание библиотеки находится в папке FiguresTask
@@ -10,54 +9,68 @@
 
 ## Figures
 
-При выполнении 1-ой задачи было принято решение возвращать экземпляр фигуры вместо значений площади для более удобного получения информации о других её параметрах (проверка прямоугольности, периметр, название и тд). Вместо интерфейса используется абстрактный класс, так как существует мнение, что наличие полей у интерфейса нарушает принцип отсутствия состояния.
+Задача реализована при помощи интерфейсов, в этот раз ничего лишнего.
 
-### Создание фигур из библиотеки и получение информации о них
+### Пример работы
 ```c#
-//Создание фигур без указания типа фигуры
-var figureOne = FigureInfo.InitiateFigure(alias:"Фигура 01", 2.0);
-var figureTwo = FigureInfo.InitiateFigure(alias: "Фигура 02", 3, 4, 5);
-var figureThree = FigureInfo.InitiateFigure(alias: "Фигура 03", 2, 2, 2, 2);
+//Вычисление площади
+var circleArea = FigureInfo.CalculateArea(2.0);
+var triangleArea = FigureInfo.CalculateArea(3, 4, 5);
 
-Console.WriteLine($"{figureOne.GetShapeName()} с именем {figureOne.GetAlias()} имеет площадь {figureOne.CalculateArea()} ");
-Console.WriteLine($"{figureTwo.GetShapeName()} с именем {figureTwo.GetAlias()} имеет площадь {figureTwo.CalculateArea()} ");
-//Получение информации о прямоугольности треугольника
-Console.WriteLine($"{figureTwo.GetShapeName()} с именем {figureTwo.GetAlias()} прямоугольный? {figureTwo.IsRectangular()} ");
-Console.WriteLine($"{figureThree.GetShapeName()} с именем {figureThree.GetAlias()} имеет площадь {figureThree.CalculateArea()} ");
+//Проверка треугольника на прямоугольность
+var isRect = FigureInfo.IsTriangleRectangular(3, 4, 5);
+
+Console.WriteLine($"ПЛОЩАДЬ КРУГА = {circleArea}"); 
+Console.WriteLine($"ПЛОЩАДЬ ТРЕУГОЛЬНИКА = {triangleArea}"); 
+Console.WriteLine($"ТРЕУГОЛЬНИК ПРЯМОУГОЛЬНЫЙ? {isRect}");
 ```
 
 ### Консольный вывод
 
-![17](https://user-images.githubusercontent.com/61066851/228287106-fc5f2a29-f6ae-4eff-8941-6f9bbf75cf60.png)
+![image](https://user-images.githubusercontent.com/61066851/234515651-7b33d94b-7025-4ca9-9a1a-d9f426d98c77.png)
 
 ### Новые фигуры
 
-Для добавления новой фигуры нужно создать её класс в папке ```/Figures```
+Для добавления новой фигуры нужно создать её класс в папке ```/Figures```<br>
+Затем применить к нему один из интерфейсов, наследующих ```IFigure``` (при необходимости создать собственный)
 
-![16](https://user-images.githubusercontent.com/61066851/228308830-53362f83-b585-46ab-90b2-614ec944754d.png)
+![image](https://user-images.githubusercontent.com/61066851/234516446-e65280bc-3e8a-460d-bd27-debab55606f3.png)
 
-И добавить перегрузку метода ```InitiateFigure()``` в классе ```FigureInfo```
-
+И добавить перегрузку метода ```DetermineFigure()``` в классе ```FigureFactory```
+Или добавить новый блок case в уже имеющийся метод для автоматического определения фигуры по входным параметрам.
 ```c#
-public static Figure InitiateFigure(string alias, double radius)
+internal static IFigure DetermineFigure(params double[] sides)
 {
-    try
+    foreach (var side in sides)
     {
-        Circle circle = new Circle(alias, radius);
+	if (side <= 0)
+	    throw new ArgumentException("The sides cannot be equal to or less than zero");
+    }
 
-        return circle;
-    }
-    catch(NullReferenceException)
+    switch (sides.Length)
     {
-        throw new NullReferenceException("Параметры не могут быть null");
+	case 0:
+	    throw new ArgumentException();
+	case 1:
+	    return new Circle(sides[0]);
+	case 2:
+	    throw new ArgumentException();
+	case 3:
+	    return new Triangle(sides[0], sides[1], sides[2]);
+	//Обработка новых N-угольников
     }
+
+    throw new ArgumentException();
 }
-//Добавление новых перегрузок для фигур с иными параметрами
 ```
 
 ### Статус Юнит-тестирования
 
-![14](https://user-images.githubusercontent.com/61066851/228288269-f4d80f5d-801e-4924-ad46-e8d33b8c6eb7.png)
+![image](https://user-images.githubusercontent.com/61066851/234514195-034b6cd9-3339-47ae-b913-8973958926ff.png)
+
+### Покрытие
+
+![image](https://user-images.githubusercontent.com/61066851/234518618-cb4434cc-c88c-4dfe-ada8-04769032565e.png)
 
 ## SQL
 
