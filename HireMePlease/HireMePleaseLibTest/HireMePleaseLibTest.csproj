@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FigureInfoWithAbstractClass\HireMePleaseLib.csproj" />
+    <ProjectReference Include="..\HireMePlease\HireMePlease.csproj" />
   </ItemGroup>
 
 </Project>

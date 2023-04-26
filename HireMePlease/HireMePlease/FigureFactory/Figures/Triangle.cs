@@ -1,23 +1,16 @@
-﻿using HireMePlease.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HireMePlease.FigureFactory.Interfaces;
 
-namespace HireMePlease.Figures
+namespace HireMePlease.FigureFactory.Figures
 {
-    internal class Triangle : IFigure
+    internal class Triangle : INGon
     {
-        public string FigureName => "Треугольник";
-
-        public double Radius { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public double[] FigureSides { get; set; }
-
         public Triangle(double sideA, double sideB, double sideC)
         {
-            FigureSides = new double[] {sideA, sideB, sideC};
+            if (!IsTriangleExists(sideA, sideB, sideC)) 
+                throw new ArgumentException("А triangle with such sides does not exist.");
+
+            FigureSides = new double[] { sideA, sideB, sideC };
         }
 
         public double CalculatePerimeter()
@@ -33,7 +26,7 @@ namespace HireMePlease.Figures
 
         public double CalculateArea()
         {
-            var halfPerimeter = CalculatePerimeter()/2;
+            var halfPerimeter = CalculatePerimeter() / 2;
             return Math.Sqrt(halfPerimeter * (halfPerimeter - FigureSides[0]) * (halfPerimeter - FigureSides[1] * (halfPerimeter - FigureSides[2])));
         }
 
@@ -43,6 +36,20 @@ namespace HireMePlease.Figures
                 return true;
 
             return false;
+        }
+
+        public bool IsTriangleExists(double sideA, double sideB, double sideC)
+        {
+            if (sideA + sideB < sideC)
+                return false;
+
+            if (sideA + sideC < sideB)
+                return false;
+
+            if (sideB + sideC < sideA)
+                return false;
+
+            return true;
         }
     }
 }
